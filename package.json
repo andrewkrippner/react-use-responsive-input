@@ -5,6 +5,11 @@
     "types": "dist/index.d.ts",
     "author": "Andrew Krippner <hey@andrewkrippner.com> (http://andrewkrippner.com)",
     "license": "MIT",
+    "files": [
+        "dist",
+        "package.json",
+        "README.md"
+    ],
     "scripts": {
         "prepublish": "yarn build",
         "build": "tsc"
