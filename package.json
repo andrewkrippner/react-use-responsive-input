@@ -1,10 +1,19 @@
 {
     "name": "react-use-responsive-input",
-    "version": "1.0.0",
-    "main": "index.ts",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "author": "Andrew Krippner <hey@andrewkrippner.com> (http://andrewkrippner.com)",
     "license": "MIT",
+    "scripts": {
+        "prepublish": "yarn build",
+        "build": "tsc"
+    },
     "dependencies": {
         "react": "^17.0.2"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.14",
+        "typescript": "^4.3.5"
     }
 }
