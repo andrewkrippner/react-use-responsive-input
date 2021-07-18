@@ -1,0 +1,10 @@
+{
+    "name": "react-use-responsive-input",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "author": "Andrew Krippner <hey@andrewkrippner.com> (http://andrewkrippner.com)",
+    "license": "MIT",
+    "dependencies": {
+        "react": "^17.0.2"
+    }
+}
