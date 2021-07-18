@@ -17,7 +17,7 @@ const useResponsiveInput = (options?: Partial<UseResponsiveInputOptions>) => {
         div.innerHTML = ref.current.value.split(' ').join('&nbsp;') || ''
         document.body.appendChild(div)
         ref.current.style.width = `${div.offsetWidth}px`
-        return div.remove
+        return () => div.remove()
     })
     return ref
 }
