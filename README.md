@@ -2,7 +2,7 @@
 
 [![npm (tag)](https://img.shields.io/npm/v/react-use-responsive-input?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/react-use-responsive-input) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-use-responsive-input?style=flat&colorA=000000&colorB=000000) ![NPM](https://img.shields.io/npm/l/react-use-responsive-input?style=flat&colorA=000000&colorB=000000)
 
-react-use-responsive-input is a react hook that enables any input component responsive to it's text size.
+useResponsiveInput is a React hook that makes any input component responsive to it's text's width.
 
 ## Installation
 
@@ -41,7 +41,6 @@ const ResponsiveInput = () => {
     return (
         <input
             ref={responsiveInputRef}
-            className='example'
             value={value}
             onChange={e => setValue(e.target.value)}
         />
