@@ -21,11 +21,17 @@ const useResponsiveInput = (options?: Partial<UseResponsiveInputOptions>) => {
         const div = document.createElement('div')
         div.style.padding = computedStyle.padding
         div.style.font = computedStyle.font
+        div.style.border = computedStyle.border
+        div.style.margin = computedStyle.margin
         div.style.visibility = 'hidden'
         div.style.display = 'inline'
-        div.innerHTML = ref.current.value.split(' ').join('&nbsp;') || ''
+        div.style.height = '0px'
+        div.style.overflow = 'hidden'
+        div.style.whiteSpace = 'pre'
+        div.innerHTML = ref.current.value.split(' ').join('&nbsp') || ''
         singletonDiv.appendChild(div)
         ref.current.style.width = `${div.offsetWidth}px`
+        ref.current.style.boxSizing = 'border-box'
         return () => div.remove()
     })
     return ref
