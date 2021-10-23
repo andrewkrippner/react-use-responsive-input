@@ -33,7 +33,8 @@ const useResponsiveInput = (options?: Partial<UseResponsiveInputOptions>) => {
         ref.current.style.width = `${div.offsetWidth}px`
         ref.current.style.boxSizing = 'border-box'
         return () => div.remove()
-    })
+    }, [ref.current?.value])
+
     return ref
 }
 
