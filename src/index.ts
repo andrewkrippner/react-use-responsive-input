@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 
 interface UseResponsiveInputOptions {
+    disabled: boolean
     minWidth: number
     extraWidth: number
 }
@@ -8,7 +9,7 @@ interface UseResponsiveInputOptions {
 const useResponsiveInput = (
     options: Partial<UseResponsiveInputOptions> = {}
 ) => {
-    const { minWidth = 0, extraWidth = 0 } = options
+    const { minWidth = 0, extraWidth = 0, disabled = false } = options
 
     const ref = useRef<HTMLInputElement>(null)
 
@@ -37,11 +38,13 @@ const useResponsiveInput = (
         div.style.whiteSpace = 'pre'
         div.innerHTML = ref.current.value.split(' ').join('&nbsp') || ''
         singletonDiv.appendChild(div)
-        ref.current.style.width = `${Math.max(
-            div.offsetWidth + extraWidth,
-            minWidth
-        )}px`
-        ref.current.style.boxSizing = 'border-box'
+        if (!disabled) {
+            ref.current.style.width = `${Math.max(
+                div.offsetWidth + extraWidth,
+                minWidth
+            )}px`
+            ref.current.style.boxSizing = 'border-box'
+        }
         return () => div.remove()
     }, [ref.current?.value])
 
