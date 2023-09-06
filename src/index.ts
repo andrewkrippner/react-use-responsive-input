@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 interface UseResponsiveInputOptions {
     disabled: boolean
@@ -10,13 +10,12 @@ const useResponsiveInput = (
     options: Partial<UseResponsiveInputOptions> = {},
 ) => {
     const { minWidth = 0, extraWidth = 0, disabled = false } = options
-
-    const ref = useRef<HTMLInputElement>(null)
+    const [inputElement, ref] = useState<HTMLInputElement | null>(null)
+    const observerRef = useRef<MutationObserver | null>(null)
 
     useEffect(() => {
+        if (!inputElement) return
         const updateWidth = () => {
-            if (!ref.current) return
-            console.log(`Updating Width of ${ref.current.id}`)
             const id = 'useResponsiveInputContainer'
             const createSingletonDiv = () => {
                 const singletonDiv = document.createElement('div')
@@ -28,7 +27,7 @@ const useResponsiveInput = (
             }
             const singletonDiv =
                 document.getElementById(id) ?? createSingletonDiv()
-            const computedStyle = window.getComputedStyle(ref.current)
+            const computedStyle = window.getComputedStyle(inputElement)
             const div = document.createElement('div')
             div.style.padding = computedStyle.padding
             div.style.font = computedStyle.font
@@ -39,21 +38,29 @@ const useResponsiveInput = (
             div.style.height = '0px'
             div.style.overflow = 'hidden'
             div.style.whiteSpace = 'pre'
-            div.innerHTML = ref.current.value.split(' ').join('&nbsp') || ''
+            div.innerHTML = inputElement.value.split(' ').join('&nbsp') || ''
             singletonDiv.appendChild(div)
             if (!disabled) {
-                ref.current.style.width = `${Math.max(
+                inputElement.style.width = `${Math.max(
                     div.offsetWidth + extraWidth,
                     minWidth,
                 )}px`
-                ref.current.style.boxSizing = 'border-box'
+                inputElement.style.boxSizing = 'border-box'
             }
             div.remove()
         }
         updateWidth()
-        ref.current?.addEventListener('input', updateWidth)
-        return () => ref.current?.removeEventListener('input', updateWidth)
-    }, [])
+        inputElement.addEventListener('input', updateWidth)
+        observerRef.current = new MutationObserver(() => updateWidth())
+        observerRef.current.observe(inputElement, {
+            attributes: true,
+            attributeFilter: ['value'],
+        })
+        return () => {
+            observerRef.current?.disconnect()
+            inputElement.removeEventListener('input', updateWidth)
+        }
+    }, [inputElement])
 
     return ref
 }
