@@ -1,6 +1,6 @@
 {
     "name": "react-use-responsive-input",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "author": "Andrew Krippner <hey@andrewkrippner.com> (https://andrewkrippner.com)",
     "license": "MIT",
     "main": "./dist/react-use-responsive-input.umd.js",
