@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useRef, useEffect } from 'react'
 
 interface UseResponsiveInputOptions {
     disabled: boolean
@@ -10,10 +10,11 @@ const useResponsiveInput = (
     options: Partial<UseResponsiveInputOptions> = {},
 ) => {
     const { minWidth = 0, extraWidth = 0, disabled = false } = options
-    const [inputElement, ref] = useState<HTMLInputElement | null>(null)
+    const ref = useRef<HTMLInputElement>(null)
     const observerRef = useRef<MutationObserver | null>(null)
 
     useEffect(() => {
+        const inputElement = ref.current
         if (!inputElement) return
         const updateWidth = () => {
             const id = 'useResponsiveInputContainer'
@@ -28,6 +29,7 @@ const useResponsiveInput = (
             const singletonDiv =
                 document.getElementById(id) ?? createSingletonDiv()
             const computedStyle = window.getComputedStyle(inputElement)
+            const value = inputElement.value || inputElement.defaultValue
             const div = document.createElement('div')
             div.style.padding = computedStyle.padding
             div.style.font = computedStyle.font
@@ -38,7 +40,7 @@ const useResponsiveInput = (
             div.style.height = '0px'
             div.style.overflow = 'hidden'
             div.style.whiteSpace = 'pre'
-            div.innerHTML = inputElement.value.split(' ').join('&nbsp') || ''
+            div.innerHTML = value.split(' ').join('&nbsp') || ''
             singletonDiv.appendChild(div)
             if (!disabled) {
                 inputElement.style.width = `${Math.max(
@@ -60,7 +62,7 @@ const useResponsiveInput = (
             observerRef.current?.disconnect()
             inputElement.removeEventListener('input', updateWidth)
         }
-    }, [inputElement])
+    }, [ref])
 
     return ref
 }
