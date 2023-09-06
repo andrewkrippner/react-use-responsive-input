@@ -3,6 +3,11 @@
     "version": "2.0.3",
     "author": "Andrew Krippner <hey@andrewkrippner.com> (https://andrewkrippner.com)",
     "license": "MIT",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "repository": "https://github.com/andrewkrippner/react-use-responsive-input",
     "main": "./dist/react-use-responsive-input.umd.js",
     "module": "./dist/react-use-responsive-input.es.js",
     "types": "./dist/index.d.ts",
@@ -25,7 +30,7 @@
         "@types/react": "18.2.21",
         "@types/uuid": "9.0.3",
         "@vitejs/plugin-react": "4.0.4",
-        "prettier": "^3.0.3",
+        "prettier": "3.0.3",
         "typescript": "5.2.2",
         "vite": "4.4.9",
         "vite-plugin-dts": "3.5.3"
