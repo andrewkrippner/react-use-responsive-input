@@ -1,26 +1,34 @@
 {
     "name": "react-use-responsive-input",
     "version": "2.0.2",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "author": "Andrew Krippner <hey@andrewkrippner.com> (http://andrewkrippner.com)",
+    "author": "Andrew Krippner <hey@andrewkrippner.com> (https://andrewkrippner.com)",
     "license": "MIT",
-    "files": [
-        "dist",
-        "package.json",
-        "tsconfig.json",
-        "README.md"
-    ],
+    "main": "./dist/react-use-responsive-input.umd.js",
+    "module": "./dist/react-use-responsive-input.es.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/react-use-responsive-input.es.js",
+            "require": "./dist/react-use-responsive-input.umd.js"
+        }
+    },
     "scripts": {
-        "prepublish": "yarn build",
-        "build": "tsc"
+        "prepublish": "vite build",
+        "build": "vite build"
     },
     "dependencies": {
-        "react": "^18.2.0"
+        "react": "18.2.0",
+        "uuid": "9.0.0"
     },
     "devDependencies": {
-        "@types/react": "^17.0.30",
-        "typescript": "^4.4.4"
+        "@types/node": "20.5.9",
+        "@types/react": "18.2.21",
+        "@types/uuid": "9.0.3",
+        "@vitejs/plugin-react": "4.0.4",
+        "prettier": "^3.0.3",
+        "typescript": "5.2.2",
+        "vite": "4.4.9",
+        "vite-plugin-dts": "3.5.3"
     },
     "prettier": {
         "semi": false,
