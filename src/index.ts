@@ -50,8 +50,9 @@ const useResponsiveInput = (
             }
             div.remove()
         }
-        ref.current?.addEventListener('change', updateWidth)
-        return () => ref.current?.removeEventListener('change', updateWidth)
+        updateWidth()
+        ref.current?.addEventListener('input', updateWidth)
+        return () => ref.current?.removeEventListener('input', updateWidth)
     }, [])
 
     return ref
