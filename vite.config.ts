@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import { UserConfig, defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+import eslint from 'vite-plugin-eslint'
 import react from '@vitejs/plugin-react'
 import { name } from './package.json'
 
@@ -31,6 +32,7 @@ export default defineConfig(() => {
         },
         plugins: [
             react(),
+            eslint(),
             dts({
                 insertTypesEntry: true,
             }),

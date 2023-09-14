@@ -1,35 +1,46 @@
 import { useRef, useEffect } from 'react'
 
+const getSingletonDiv = (id: string) => {
+    const currentSingleton = document.getElementById(id)
+    if (currentSingleton) return currentSingleton
+    const newSingleton = document.createElement('div')
+    newSingleton.id = id
+    newSingleton.style.height = '0px'
+    newSingleton.style.overflow = 'hidden'
+    document.body.appendChild(newSingleton)
+    return newSingleton
+}
+
 interface UseResponsiveInputOptions {
     disabled: boolean
     minWidth: number
     extraWidth: number
+    fixedValue: string
+    onUpdateWidth(width: number): void
 }
 
 const useResponsiveInput = (
     options: Partial<UseResponsiveInputOptions> = {},
 ) => {
-    const { minWidth = 0, extraWidth = 0, disabled = false } = options
+    const {
+        minWidth = 0,
+        extraWidth = 0,
+        fixedValue,
+        disabled = false,
+        onUpdateWidth,
+    } = options
     const ref = useRef<HTMLInputElement>(null)
     const observerRef = useRef<MutationObserver | null>(null)
 
     useEffect(() => {
         const inputElement = ref.current
         if (!inputElement) return
+        if (disabled) return
         const updateWidth = () => {
-            const id = 'useResponsiveInputContainer'
-            const createSingletonDiv = () => {
-                const singletonDiv = document.createElement('div')
-                singletonDiv.id = id
-                singletonDiv.style.height = '0px'
-                singletonDiv.style.overflow = 'hidden'
-                document.body.appendChild(singletonDiv)
-                return singletonDiv
-            }
-            const singletonDiv =
-                document.getElementById(id) ?? createSingletonDiv()
+            const singletonDiv = getSingletonDiv('useResponsiveInputContainer')
             const computedStyle = window.getComputedStyle(inputElement)
-            const value = inputElement.value || inputElement.defaultValue
+            const value =
+                fixedValue || inputElement.value || inputElement.defaultValue
             const div = document.createElement('div')
             div.style.padding = computedStyle.padding
             div.style.font = computedStyle.font
@@ -42,13 +53,13 @@ const useResponsiveInput = (
             div.style.whiteSpace = 'pre'
             div.innerHTML = value.split(' ').join('&nbsp') || ''
             singletonDiv.appendChild(div)
-            if (!disabled) {
-                inputElement.style.width = `${Math.max(
-                    div.offsetWidth + extraWidth,
-                    minWidth,
-                )}px`
-                inputElement.style.boxSizing = 'border-box'
-            }
+            const computedWidth = Math.max(
+                div.offsetWidth + extraWidth,
+                minWidth,
+            )
+            onUpdateWidth?.(computedWidth)
+            inputElement.style.width = `${computedWidth}px`
+            inputElement.style.boxSizing = 'border-box'
             div.remove()
         }
         updateWidth()
@@ -64,7 +75,7 @@ const useResponsiveInput = (
             observerRef.current?.disconnect()
             inputElement.removeEventListener('input', updateWidth)
         }
-    }, [ref])
+    }, [ref, disabled, minWidth, extraWidth, fixedValue, onUpdateWidth])
 
     return ref
 }
