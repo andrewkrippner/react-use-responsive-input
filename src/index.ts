@@ -56,7 +56,6 @@ const useResponsiveInput = (
         observerRef.current = new MutationObserver(() => updateWidth())
         observerRef.current.observe(inputElement, {
             attributes: true,
-            attributeFilter: ['value'],
         })
         return () => {
             observerRef.current?.disconnect()
