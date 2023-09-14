@@ -56,6 +56,9 @@ const useResponsiveInput = (
         observerRef.current = new MutationObserver(() => updateWidth())
         observerRef.current.observe(inputElement, {
             attributes: true,
+            subtree: true,
+            childList: true,
+            characterData: true,
         })
         return () => {
             observerRef.current?.disconnect()
