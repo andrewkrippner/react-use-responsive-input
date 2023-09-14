@@ -18,7 +18,7 @@ npm install react-use-responsive-input
 yarn add react-use-responsive-input
 ```
 
-<!-- 
+<!--
 
 
 ```bash
@@ -31,18 +31,29 @@ npm install react-use-responsive-input
 ## Example
 
 ```tsx
-import { useState } from 'react'
 import useResponsiveInput from 'react-use-responsive-input'
 
-const ResponsiveInput = () => {
-    const [value, setValue] = useState('')
-    const responsiveInputRef = useResponsiveInput()
+const ResponsiveInput = ({
+    value,
+    onChange,
+}: {
+    value: string
+    onChange?(value: string): void
+}) => {
+    const responsiveInputRef = useResponsiveInput({
+        // options
+        // disabled: boolean
+        // extraWidth: number
+        // fixedValue: string
+        // minWidth: number
+        // onUpdateWidth(width: number): void
+    })
 
     return (
         <input
             ref={responsiveInputRef}
             value={value}
-            onChange={e => setValue(e.target.value)}
+            onChange={(e) => onChange?.(e.target.value)}
         />
     )
 }
