@@ -1,22 +1,22 @@
 {
+    "compileOnSave": true,
     "compilerOptions": {
-        "target": "ES2020",
-        "outDir": "dist",
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "downlevelIteration": true,
-        "noUncheckedIndexedAccess": true,
-        "forceConsistentCasingInFileNames": true,
+        "allowJs": true,
         "composite": true,
-        "module": "ES2020",
-        "moduleResolution": "node",
+        "declaration": true,
+        "esModuleInterop": true,
         "isolatedModules": true,
-        "jsx": "react-jsx",
-        "types": ["vite/client"],
-        "noFallthroughCasesInSwitch": true,
-        "baseUrl": "./src"
+        "lib": ["ESNext", "DOM"],
+        "module": "ES6",
+        "moduleResolution": "node",
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "ES6"
     },
-    "include": ["src"]
+    "include": ["src/**/*"]
 }

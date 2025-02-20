@@ -1,6 +1,6 @@
 {
     "name": "react-use-responsive-input",
-    "version": "2.0.10",
+    "version": "2.0.11",
     "author": "Andrew Krippner <hey@andrewkrippner.com> (https://andrewkrippner.com)",
     "license": "MIT",
     "type": "module",
@@ -8,13 +8,19 @@
         "dist"
     ],
     "repository": "https://github.com/andrewkrippner/react-use-responsive-input",
-    "main": "./dist/react-use-responsive-input.umd.js",
-    "module": "./dist/react-use-responsive-input.es.js",
+    "main": "dist/index.cjs",
+    "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/react-use-responsive-input.es.js",
-            "require": "./dist/react-use-responsive-input.umd.js"
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            },
+            "require": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.cjs"
+            }
         }
     },
     "scripts": {
@@ -22,26 +28,24 @@
         "build": "vite build"
     },
     "dependencies": {
-        "react": "18.2.0"
+        "react": "18.3.1"
     },
     "devDependencies": {
-        "@types/node": "20.5.9",
+        "@eslint/js": "9.20.0",
+        "@types/node": "^22.13.4",
         "@types/react": "18.2.21",
         "@vitejs/plugin-react": "4.0.4",
         "eslint": "8.49.0",
-        "eslint-config-react-app": "7.0.1",
+        "globals": "16.0.0",
         "prettier": "3.0.3",
-        "typescript": "5.2.2",
-        "vite": "4.4.9",
-        "vite-plugin-dts": "3.5.3",
-        "vite-plugin-eslint": "1.8.1"
+        "typescript": "5.7.3",
+        "typescript-eslint": "8.24.1",
+        "vite": "6.1.0",
+        "vite-plugin-dts": "4.5.0"
     },
     "prettier": {
         "semi": false,
         "tabWidth": 4,
         "singleQuote": true
-    },
-    "eslintConfig": {
-        "extends": "react-app"
     }
 }
